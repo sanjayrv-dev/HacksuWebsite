@@ -1,0 +1,414 @@
+/* ==========================================================================
+   hacksu
+   Tweak the knobs in :root — everything else follows from them.
+   ========================================================================== */
+
+:root {
+  --bg: #000;
+  --fg: #fff;
+
+  /* text tiers, matched to the reference site's hierarchy */
+  --fg-body:  rgba(255, 255, 255, 0.6);
+  --fg-muted: rgba(255, 255, 255, 0.45);
+  --fg-faint: rgba(255, 255, 255, 0.3);
+
+  /* binary rain */
+  --rain: #22ff88;
+
+  --sans:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --serif: "Noto Serif", Georgia, "Times New Roman", serif;
+
+  --measure: 660px;   /* max text width */
+  --gutter: 32px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Binary rain background
+   -------------------------------------------------------------------------- */
+
+#rain {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+}
+
+/* Darkens the middle of the screen so the rain reads as texture at the edges
+   and never fights the copy for attention. */
+.rain-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  /* Tight enough to keep the copy legible, but it lets go quickly so the rain
+     stays visible across most of the screen. */
+  background:
+    radial-gradient(ellipse 58% 46% at 50% 50%,
+      rgba(0, 0, 0, 0.86) 0%,
+      rgba(0, 0, 0, 0.7)  45%,
+      rgba(0, 0, 0, 0.3)  75%,
+      rgba(0, 0, 0, 0.05) 100%);
+}
+
+/* Scanlines — a faint CRT grain over the whole background. */
+.rain-veil::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.28) 3px,
+    rgba(0, 0, 0, 0.28) 4px);
+}
+
+/* A slow green bloom breathing behind the rain, so the background has some
+   depth instead of reading as flat black. */
+.rain-veil::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle 40vw at 18% 28%, rgba(34, 255, 136, 0.07), transparent 70%),
+    radial-gradient(circle 34vw at 84% 72%, rgba(34, 255, 136, 0.05), transparent 70%);
+  animation: bloom 18s ease-in-out infinite alternate;
+}
+
+@keyframes bloom {
+  from { opacity: 0.45; transform: translate3d(0, 0, 0) scale(1); }
+  to   { opacity: 1;    transform: translate3d(0, -3%, 0) scale(1.12); }
+}
+
+/* On a narrow screen the veil's centre covers nearly the whole viewport, which
+   flattens the rain to almost nothing. Ease it off and pull the falloff in. */
+@media (max-width: 700px) {
+  .rain-veil {
+    background:
+      radial-gradient(ellipse 62% 38% at 50% 42%,
+        rgba(0, 0, 0, 0.84) 0%,
+        rgba(0, 0, 0, 0.64) 45%,
+        rgba(0, 0, 0, 0.26) 75%,
+        rgba(0, 0, 0, 0.04) 100%);
+  }
+}
+
+main, .footer, .topbar { position: relative; z-index: 2; }
+
+/* Now that the rain is bright enough to run behind the copy, every text element
+   carries a soft black halo. This buys legibility locally, at the glyph, rather
+   than by dimming the whole background — the rain stays as loud as it looks. */
+.wordmark, .pronounce, .tagline,
+.section-title, .item h3, .item p,
+.about-copy, .connect-copy,
+.social a, .footer p,
+.topbar-mark, .topbar-nav a {
+  text-shadow:
+    0 0 6px  rgba(0, 0, 0, 0.95),
+    0 0 18px rgba(0, 0, 0, 0.9),
+    0 0 36px rgba(0, 0, 0, 0.75);
+}
+
+/* --------------------------------------------------------------------------
+   Top bar
+   -------------------------------------------------------------------------- */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px var(--gutter);
+  z-index: 10;
+
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent);
+
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.topbar.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.topbar-mark {
+  font-size: 20px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.5px;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.topbar-nav { display: flex; gap: 26px; }
+
+.topbar-nav a {
+  font-size: 13px;
+  letter-spacing: 1.3px;
+  color: var(--fg-muted);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.topbar-nav a:hover,
+.topbar-mark:hover { color: var(--fg); }
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 var(--gutter);
+}
+
+.wordmark {
+  margin: 0;
+  font-size: clamp(60px, 13vw, 128px);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+
+  animation: rise 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.pronounce {
+  margin: 14px 0 0;
+  font-size: 13px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+
+  animation: rise 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.pronounce em { font-style: italic; letter-spacing: 1px; }
+
+.tagline {
+  margin: 26px 0 0;
+  max-width: 34ch;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0.4px;
+  line-height: 1.6;
+  color: var(--fg-body);
+
+  animation: rise 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* scroll cue */
+.scroll-cue {
+  position: absolute;
+  bottom: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 46px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+
+  animation: rise 1.1s ease 0.9s both;
+}
+
+.scroll-cue span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, var(--fg));
+  animation: cue 2.2s ease-in-out infinite;
+}
+
+@keyframes cue {
+  0%   { transform: translateY(-100%); }
+  60%  { transform: translateY(100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* --------------------------------------------------------------------------
+   Sections
+   -------------------------------------------------------------------------- */
+
+.section {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 15vh var(--gutter);
+}
+
+.section-title {
+  margin: 0 0 56px;
+  font-size: clamp(24px, 4vw, 30px);
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+/* what we do */
+.items { display: flex; flex-direction: column; gap: 56px; }
+
+.item h3 {
+  margin: 0 0 12px;
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.4px;
+}
+
+.item p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: 0.4px;
+  color: var(--fg-body);
+}
+
+/* about */
+.about-copy {
+  margin: 0;
+  font-size: clamp(18px, 2.4vw, 20px);
+  font-weight: 300;
+  line-height: 1.75;
+  letter-spacing: 0.4px;
+  color: var(--fg-body);
+}
+
+/* connect */
+.connect-copy {
+  margin: 0 0 40px;
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: 0.4px;
+  color: var(--fg-body);
+}
+
+.social { display: flex; flex-wrap: wrap; gap: 32px; }
+
+.social a {
+  position: relative;
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  color: var(--fg-muted);
+  text-decoration: none;
+  padding-bottom: 4px;
+  transition: color 0.25s ease;
+}
+
+.social a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social a:hover { color: var(--fg); }
+.social a:hover::after { transform: scaleX(1); }
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.footer {
+  padding: 60px var(--gutter) 48px;
+  text-align: center;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 1.3px;
+  color: var(--fg-faint);
+}
+
+/* --------------------------------------------------------------------------
+   Scroll reveal
+   -------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* stagger the cards */
+.item.reveal:nth-child(2) { transition-delay: 0.1s; }
+.item.reveal:nth-child(3) { transition-delay: 0.2s; }
+
+/* --------------------------------------------------------------------------
+   Small screens
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  :root { --gutter: 22px; }
+
+  .topbar-nav { gap: 18px; }
+  .topbar-nav a { font-size: 12px; letter-spacing: 1px; }
+
+  .section { padding: 12vh var(--gutter); }
+  .section-title { margin-bottom: 40px; }
+  .items { gap: 44px; }
+  .social { gap: 24px; }
+}
+
+/* Hide the nav links on very narrow screens so the bar never wraps */
+@media (max-width: 380px) {
+  .topbar-nav { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .wordmark, .pronounce, .tagline, .scroll-cue { animation: none; }
+  .scroll-cue span { animation: none; opacity: 0.3; }
+
+  .reveal { opacity: 1; transform: none; transition: none; }
+
+  .topbar { transition: none; }
+
+  .rain-veil::after { animation: none; opacity: 0.7; }
+}
