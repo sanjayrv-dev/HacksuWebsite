@@ -221,39 +221,27 @@
 
     resize();
 
-    if (reduceMotion) {
-      // Paint one static frame instead of animating.
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    // The rain always animates, independent of prefers-reduced-motion — it's
+    // decorative background texture, not motion the user has to track.
+    warmUp(140);
+    raf = requestAnimationFrame(draw);
 
-      for (var c = 0; c < cols; c++) {
-        if (speeds[c] === 0) continue;
-        for (var r = 0; r < rows; r++) {
-          if (Math.random() < 0.16) {
-            drawGlyph(c, r, bit(), false);
-          }
-        }
+    // Stop animating while the tab is hidden — no point burning battery.
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        if (raf) cancelAnimationFrame(raf);
+        raf = null;
+      } else if (!raf) {
+        raf = requestAnimationFrame(draw);
       }
-    } else {
-      warmUp(140);
-      raf = requestAnimationFrame(draw);
-
-      // Stop animating while the tab is hidden — no point burning battery.
-      document.addEventListener("visibilitychange", function () {
-        if (document.hidden) {
-          if (raf) cancelAnimationFrame(raf);
-          raf = null;
-        } else if (!raf) {
-          raf = requestAnimationFrame(draw);
-        }
-      });
-    }
+    });
 
     var resizeTimer;
     window.addEventListener("resize", function () {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
         resize(); // clears the canvas, so rebuild the trails before painting
-        if (!reduceMotion) warmUp(140);
+        warmUp(140);
       }, 150);
     });
   }
