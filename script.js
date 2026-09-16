@@ -8,6 +8,12 @@
 (function () {
   "use strict";
 
+  // Update this whenever the Discord invite link expires — nothing else to touch.
+  var DISCORD_INVITE = "https://discord.gg/gqnp5JEuG";
+
+  var discordLink = document.getElementById("discord-link");
+  if (discordLink) discordLink.href = DISCORD_INVITE;
+
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------------------------------------------------------------------------
