@@ -278,12 +278,18 @@
   var topbar = document.getElementById("topbar");
 
   if (topbar) {
-    var onScroll = function () {
-      topbar.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.7);
-    };
+    if (document.body.classList.contains("subpage")) {
+      // Subpages have no tall hero to scroll past, so the topbar is visible
+      // from the start instead of fading in on scroll.
+      topbar.classList.add("is-visible");
+    } else {
+      var onScroll = function () {
+        topbar.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.7);
+      };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    }
   }
 
   /* --------------------------------------------------------------------------- */

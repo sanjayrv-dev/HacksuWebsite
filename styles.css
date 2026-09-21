@@ -118,7 +118,10 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 .section-title, .item h3, .item p,
 .about-copy, .connect-copy,
 .social a, .footer p,
-.topbar-mark, .topbar-nav a {
+.topbar-mark, .topbar-nav a,
+.subpage-intro, .coming-soon p,
+.team-card h3, .team-card .role, .team-card .tagline,
+.team-card dt, .team-card dd {
   text-shadow:
     0 0 6px  rgba(0, 0, 0, 0.95),
     0 0 18px rgba(0, 0, 0, 0.9),
@@ -175,6 +178,154 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 
 .topbar-nav a:hover,
 .topbar-mark:hover { color: var(--fg); }
+
+.topbar-nav a.is-current { color: var(--fg); }
+
+/* --------------------------------------------------------------------------
+   Subpages (leadership, meetings, resources, contact)
+
+   These pages have no tall hero, so the topbar is visible immediately
+   (see script.js) and content starts near the top of the viewport instead
+   of being centered in it.
+   -------------------------------------------------------------------------- */
+
+.subpage-header {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 140px var(--gutter) 0;
+}
+
+.subpage-header .section-title { margin-bottom: 16px; }
+
+.subpage-intro {
+  margin: 0 0 56px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  letter-spacing: 0.4px;
+  color: var(--fg-body);
+}
+
+.coming-soon {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter) 15vh;
+}
+
+.coming-soon p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: 0.4px;
+  color: var(--fg-muted);
+}
+
+.coming-soon p + p { margin-top: 18px; }
+
+.items-wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter) 15vh;
+}
+
+/* --------------------------------------------------------------------------
+   Leadership / officer cards
+   -------------------------------------------------------------------------- */
+
+.team-grid {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 var(--gutter) 15vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+.team-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 28px 24px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 18px;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--bg);
+  background: var(--rain);
+}
+
+.team-card h3 {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.4px;
+}
+
+.team-card .role {
+  margin: 0 0 16px;
+  font-size: 12px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: var(--rain);
+}
+
+.team-card .tagline {
+  margin: 0 0 16px;
+  max-width: none;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: 0.2px;
+  color: var(--fg-body);
+  font-style: italic;
+  animation: none;
+}
+
+.team-card dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 10px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.team-card dt {
+  color: var(--fg-faint);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-size: 11px;
+  padding-top: 1px;
+}
+
+.team-card dd {
+  margin: 0;
+  color: var(--fg-body);
+}
+
+.team-card dd a {
+  color: var(--fg-body);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.team-card dd a:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+}
 
 /* --------------------------------------------------------------------------
    Hero
