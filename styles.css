@@ -229,6 +229,132 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 }
 
 /* --------------------------------------------------------------------------
+   Crew strip — auto-scrolling polaroids, grayscale until you hover one.
+
+   No real photos yet, so each "photo" is a solid accent tile with initials —
+   same idea as .avatar, just square and colorized instead of a green circle.
+   To drop in a real photo later: swap the <span class="polaroid-photo">…</span>
+   for <img class="polaroid-photo" src="…">. Nothing else needs to change —
+   the grayscale filter and hover reveal apply to whatever's inside.
+
+   The <li> list is duplicated once in the HTML (same 6, back to back) so the
+   -50% keyframe below is exactly one full loop — the standard trick for a
+   seamless marquee with zero JS.
+   -------------------------------------------------------------------------- */
+
+.crew {
+  overflow: hidden;
+  padding: 7vh 0;
+  background: var(--bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.crew-track { overflow: hidden; }
+
+.crew-track-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  width: max-content;
+  list-style: none;
+  margin: 0;
+  padding: 10px 20px;
+  animation: crew-scroll 34s linear infinite;
+}
+
+.crew-track:hover .crew-track-inner { animation-play-state: paused; }
+
+@keyframes crew-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.polaroid {
+  flex: 0 0 auto;
+  width: 168px;
+  padding: 14px 14px 18px;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.polaroid:nth-child(6n+1) { --tilt: -2deg; }
+.polaroid:nth-child(6n+2) { --tilt: 1.5deg; }
+.polaroid:nth-child(6n+3) { --tilt: -1deg; }
+.polaroid:nth-child(6n+4) { --tilt: 2deg; }
+.polaroid:nth-child(6n+5) { --tilt: -1.5deg; }
+.polaroid:nth-child(6n+6) { --tilt: 1deg; }
+
+.polaroid-photo {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  margin-bottom: 12px;
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.55);
+  background: var(--accent, var(--rain));
+  filter: grayscale(1) brightness(0.65);
+  transition: filter 0.5s ease;
+}
+
+.polaroid-caption { display: block; }
+
+.polaroid-caption strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  color: var(--fg);
+}
+
+.polaroid-caption em {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  font-style: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  transition: color 0.4s ease;
+}
+
+/* only devices with real hover get the reveal-on-hover treatment */
+@media (hover: hover) {
+  .polaroid:hover {
+    transform: rotate(0deg) translateY(-6px) scale(1.05);
+    z-index: 1;
+  }
+  .polaroid:hover .polaroid-photo { filter: grayscale(0) brightness(1); }
+  .polaroid:hover .polaroid-caption em { color: var(--accent, var(--rain)); }
+}
+
+/* touch devices can't hover, so grayscale would just look broken — skip it */
+@media (hover: none) {
+  .polaroid-photo { filter: grayscale(0) brightness(1); }
+}
+
+@media (max-width: 600px) {
+  .polaroid { width: 132px; padding: 10px 10px 14px; }
+  .polaroid-photo { font-size: 24px; margin-bottom: 8px; }
+  .crew-track-inner { gap: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crew-track-inner { animation: none; }
+}
+
+/* --------------------------------------------------------------------------
    Leadership / officer cards
    -------------------------------------------------------------------------- */
 
