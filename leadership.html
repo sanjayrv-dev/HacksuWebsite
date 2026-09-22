@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>leadership — hacksu</title>
+<meta name="description" content="meet the leaders behind hacksu — the cross-major builder collective at KSU.">
+<meta name="theme-color" content="#000000">
+
+<link rel="stylesheet" href="styles.css">
+<style>
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: 100%;
+  padding: 8vw;
+  margin: 0;
+}
+
+.officer-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  aspect-ratio: 1;
+}
+
+.officer-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+}
+
+.officer-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--pos, 50% 50%);
+  filter: grayscale(1) brightness(0.7);
+  transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.officer-card:hover .officer-photo {
+  filter: grayscale(0) brightness(1);
+}
+
+.officer-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  transition: opacity 0.3s ease;
+}
+
+.officer-card:hover .officer-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.officer-info {
+  z-index: 2;
+}
+
+.officer-role {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent, #22ff88);
+  margin-bottom: 8px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.officer-major {
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.leadership-header {
+  max-width: 100%;
+  padding: 140px 8vw 0;
+  margin: 0;
+}
+
+.leadership-header .section-title {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.leadership-intro {
+  max-width: 800px;
+  margin: 0 auto 80px;
+  text-align: center;
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .leadership-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    padding: 8vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .leadership-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 6vw;
+  }
+
+  .officer-role {
+    font-size: 14px;
+  }
+
+  .officer-major {
+    font-size: 11px;
+  }
+
+  .leadership-header {
+    padding: 100px 6vw 0;
+  }
+
+  .leadership-intro {
+    margin-bottom: 50px;
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+<body class="subpage">
+
+<!-- binary rain background -->
+<canvas id="rain" aria-hidden="true"></canvas>
+<div class="rain-veil" aria-hidden="true"></div>
+
+<header class="topbar" id="topbar">
+  <a class="topbar-mark" href="index.html#top">hacksu</a>
+  <nav class="topbar-nav">
+    <a href="index.html">home</a>
+    <a href="leadership.html" class="is-current">leadership</a>
+    <a href="meetings.html">meetings</a>
+    <a href="resources.html">resources</a>
+    <a href="contact.html">contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <div class="leadership-header">
+    <h1 class="section-title reveal">leadership</h1>
+    <p class="leadership-intro reveal">the people obsessed over their craft. hover to reveal the full color.</p>
+  </div>
+
+  <div class="leadership-grid reveal">
+
+    <div class="officer-card" style="--accent:#22ff88">
+      <img class="officer-photo" src="images/officers/sanjay.jpg" alt="" style="--pos:60% 45%">
+      <div class="officer-overlay">
+        <div class="officer-info">
+          <div class="officer-role">Prezzy-dent</div>
+          <div class="officer-major">CS+Math</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="officer-card" style="--accent:#22d3ee">
+      <img class="officer-photo" src="images/officers/prannav.jpg" alt="" style="--pos:50% 30%">
+      <div class="officer-overlay">
+        <div class="officer-info">
+          <div class="officer-role">Vice-Prezzy</div>
+          <div class="officer-major">ME</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="officer-card" style="--accent:#a78bfa">
+      <img class="officer-photo" src="images/officers/akshat.jpg" alt="" style="--pos:50% 50%">
+      <div class="officer-overlay">
+        <div class="officer-info">
+          <div class="officer-role">Sec-re-dairy</div>
+          <div class="officer-major">CPE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="officer-card" style="--accent:#60a5fa">
+      <img class="officer-photo" src="images/officers/alex.jpg" alt="" style="--pos:50% 28%">
+      <div class="officer-overlay">
+        <div class="officer-info">
+          <div class="officer-role">Marketing</div>
+          <div class="officer-major">CPE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="officer-card" style="--accent:#fbbf24">
+      <img class="officer-photo" src="images/officers/amrit.jpg" alt="" style="--pos:50% 38%">
+      <div class="officer-overlay">
+        <div class="officer-info">
+          <div class="officer-role">Reservation Degenerate</div>
+          <div class="officer-major">IET</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="officer-card" style="--accent:#fb7185">
+      <img class="officer-photo" src="images/officers/ishika.jpg" alt="" style="--pos:50% 20%">
+      <div class="officer-overlay">
+        <div class="officer-info">
+          <div class="officer-role">Treasu-rawr</div>
+          <div class="officer-major">ISyE</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year">2026</span> hacksu</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
