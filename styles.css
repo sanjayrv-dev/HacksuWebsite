@@ -392,10 +392,10 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 
 .crew-track {
   overflow: hidden;
-  max-width: min(900px, 96vw);
-  margin: 0 auto;
-  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  mask-image: linear-gradient(to right, transparent 0%, black 2%, black 98%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 2%, black 98%, transparent 100%);
 }
 
 .crew-track-inner {
@@ -411,8 +411,8 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 
 .polaroid {
   flex: 0 0 auto;
-  width: 295px;
-  padding: 16px 16px 50px;
+  width: 380px;
+  padding: 20px 20px 65px;
   background: #0a0a0a;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 2px;
@@ -475,10 +475,10 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 }
 
 @media (max-width: 600px) {
-  .polaroid { width: 240px; padding: 13px 13px 38px; }
-  .polaroid-photo { margin-bottom: 12px; }
-  .crew-track-inner { gap: 16px; }
-  .crew-track { max-width: min(740px, 96vw); }
+  .polaroid { width: 280px; padding: 16px 16px 50px; }
+  .polaroid-photo { margin-bottom: 14px; }
+  .crew-track-inner { gap: 18px; }
+  .crew-track { width: 100vw; margin-left: calc(-50vw + 50%); }
 }
 
 /* the drift is stopped in script.js when the visitor prefers reduced motion,
