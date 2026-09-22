@@ -387,15 +387,14 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 .crew {
   overflow: hidden;
   padding: 7vh 0;
-  background: var(--bg);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .crew-track {
   overflow: hidden;
   max-width: min(660px, 94vw);
   margin: 0 auto;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
 .crew-track-inner {

@@ -317,8 +317,8 @@
   var crewTrack = document.getElementById("crewTrack");
 
   if (crewTrack && !reduceMotion) {
-    var CREW_SPEED = 0.034;       // px/ms while idle — one loop every ~34s
-    var CREW_HOVER_SPEED = 0.018; // px/ms while hovered — a little slower, never stopped
+    var CREW_SPEED = 0.055;       // px/ms while idle — faster carousel
+    var CREW_HOVER_SPEED = 0.030; // px/ms while hovered — slower while hovering
     var CREW_EASE = 0.05;         // how quickly speed transitions between the two
 
     var crewPos = 0;
