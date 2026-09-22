@@ -411,8 +411,8 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 
 .polaroid {
   flex: 0 0 auto;
-  width: 380px;
-  padding: 20px 20px 65px;
+  width: 500px;
+  padding: 24px 24px 80px;
   background: #0a0a0a;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 2px;
@@ -475,9 +475,9 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 }
 
 @media (max-width: 600px) {
-  .polaroid { width: 280px; padding: 16px 16px 50px; }
+  .polaroid { width: 350px; padding: 18px 18px 60px; }
   .polaroid-photo { margin-bottom: 14px; }
-  .crew-track-inner { gap: 18px; }
+  .crew-track-inner { gap: 20px; }
   .crew-track { width: 100vw; margin-left: calc(-50vw + 50%); }
 }
 
@@ -571,9 +571,9 @@ main, .footer, .topbar { position: relative; z-index: 2; }
    -------------------------------------------------------------------------- */
 
 .section {
-  max-width: var(--measure);
-  margin: 0 auto;
-  padding: 15vh var(--gutter);
+  max-width: 100%;
+  margin: 0;
+  padding: 15vh 8vw;
 }
 
 /* the crew band immediately below brings its own vertical padding —
@@ -589,7 +589,7 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 }
 
 /* what we do */
-.items { display: flex; flex-direction: column; gap: 56px; }
+.items { display: flex; flex-direction: column; gap: 56px; width: 100%; }
 
 .item h3 {
   margin: 0 0 12px;
