@@ -120,8 +120,8 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 .social a, .footer p,
 .topbar-mark, .topbar-nav a,
 .subpage-intro, .coming-soon p,
-.team-card h3, .team-card .role, .team-card .tagline,
-.team-card dt, .team-card dd {
+.field > label, .field--group > legend, .field-hint,
+.check, .form-status {
   text-shadow:
     0 0 6px  rgba(0, 0, 0, 0.95),
     0 0 18px rgba(0, 0, 0, 0.9),
@@ -229,17 +229,159 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 }
 
 /* --------------------------------------------------------------------------
-   Crew strip — auto-scrolling polaroids, grayscale until you hover one.
+   Partnerships form
+   -------------------------------------------------------------------------- */
 
-   No real photos yet, so each "photo" is a solid accent tile with initials —
-   same idea as .avatar, just square and colorized instead of a green circle.
-   To drop in a real photo later: swap the <span class="polaroid-photo">…</span>
-   for <img class="polaroid-photo" src="…">. Nothing else needs to change —
-   the grayscale filter and hover reveal apply to whatever's inside.
+.form-title {
+  margin-bottom: 40px;
+  font-size: clamp(20px, 3vw, 24px);
+  letter-spacing: 1.5px;
+}
 
-   The <li> list is duplicated once in the HTML (same 6, back to back) so the
-   -50% keyframe below is exactly one full loop — the standard trick for a
-   seamless marquee with zero JS.
+.partner-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.field { display: flex; flex-direction: column; }
+
+.field > label,
+.field--group > legend {
+  display: block;
+  width: 100%;
+  margin: 0 0 10px;
+  padding: 0;
+  border: 0;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.req { color: var(--rain); }
+
+.field-hint {
+  margin: -4px 0 12px;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--fg-faint);
+}
+
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="tel"],
+.field textarea {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 15px;
+  letter-spacing: 0.2px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.field textarea { resize: vertical; line-height: 1.6; }
+
+.field input::placeholder,
+.field textarea::placeholder { color: var(--fg-faint); }
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--rain);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.field--group { margin: 0; padding: 0; border: 0; }
+
+.checks, .radios {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.check {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  color: var(--fg-body);
+  cursor: pointer;
+}
+
+.check input {
+  accent-color: var(--rain);
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.field-error {
+  margin: 10px 0 0;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  color: #fb7185;
+}
+
+.field--submit { align-items: flex-start; gap: 18px; }
+
+.btn-send {
+  padding: 15px 44px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+}
+
+.btn-send:hover { border-color: var(--rain); color: var(--rain); }
+
+.btn-send:disabled { opacity: 0.5; cursor: default; }
+
+.form-status {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  color: var(--fg-body);
+}
+
+.form-status.is-error { color: #fb7185; }
+.form-status.is-ok { color: var(--rain); }
+
+/* --------------------------------------------------------------------------
+   Crew strip — a revolving band of polaroids, grayscale until you hover one.
+   Modeled on hackerhousecampus.com's member strip: continuous horizontal
+   drift, desaturated by default, color + a slight lift on hover, and the
+   whole band eases to a slower drift (never a full stop) while you're over
+   it. Driven by script.js (see "4. Leadership crew carousel") rather than a
+   CSS animation, so the speed change can ease instead of snapping.
+
+   Each <img class="polaroid-photo"> carries a per-person --pos custom property
+   (set inline in index.html) for object-position, since a portrait crop needs
+   a different vertical anchor per photo to keep the face in frame; --accent
+   stays as the fallback tile color while an image loads (or if one 404s) and
+   tints that person's caption on hover.
+
+   The <li> list is duplicated once in the HTML (same 6, back to back, the
+   second set aria-hidden) so translateX(-50%) is exactly one full loop and
+   the wrap is invisible. The visible track is capped to roughly three
+   polaroids wide, so with six distinct people in rotation the same person
+   is never on screen twice at once.
    -------------------------------------------------------------------------- */
 
 .crew {
@@ -250,7 +392,11 @@ main, .footer, .topbar { position: relative; z-index: 2; }
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.crew-track { overflow: hidden; }
+.crew-track {
+  overflow: hidden;
+  max-width: min(660px, 94vw);
+  margin: 0 auto;
+}
 
 .crew-track-inner {
   display: flex;
@@ -260,26 +406,19 @@ main, .footer, .topbar { position: relative; z-index: 2; }
   list-style: none;
   margin: 0;
   padding: 10px 20px;
-  animation: crew-scroll 34s linear infinite;
-}
-
-.crew-track:hover .crew-track-inner { animation-play-state: paused; }
-
-@keyframes crew-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  will-change: transform;
 }
 
 .polaroid {
   flex: 0 0 auto;
-  width: 168px;
+  width: 190px;
   padding: 14px 14px 18px;
   background: #0a0a0a;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 2px;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
   transform: rotate(var(--tilt, 0deg));
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .polaroid:nth-child(6n+1) { --tilt: -2deg; }
@@ -290,17 +429,12 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 .polaroid:nth-child(6n+6) { --tilt: 1deg; }
 
 .polaroid-photo {
-  display: flex;
+  display: block;
   width: 100%;
-  align-items: center;
-  justify-content: center;
   aspect-ratio: 1;
   margin-bottom: 12px;
-  font-family: var(--serif);
-  font-size: 30px;
-  font-weight: 700;
-  font-style: italic;
-  color: rgba(0, 0, 0, 0.55);
+  object-fit: cover;
+  object-position: var(--pos, 50% 50%);
   background: var(--accent, var(--rain));
   filter: grayscale(1) brightness(0.65);
   transition: filter 0.5s ease;
@@ -308,20 +442,9 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 
 .polaroid-caption { display: block; }
 
-.polaroid-caption strong {
-  display: block;
-  font-family: var(--serif);
-  font-size: 15px;
-  font-weight: 700;
-  font-style: italic;
-  letter-spacing: 0.3px;
-  color: var(--fg);
-}
-
 .polaroid-caption em {
   display: block;
-  margin-top: 3px;
-  font-size: 10px;
+  font-size: 11px;
   font-style: normal;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -339,119 +462,15 @@ main, .footer, .topbar { position: relative; z-index: 2; }
   .polaroid:hover .polaroid-caption em { color: var(--accent, var(--rain)); }
 }
 
-/* touch devices can't hover, so grayscale would just look broken — skip it */
-@media (hover: none) {
-  .polaroid-photo { filter: grayscale(0) brightness(1); }
-}
-
 @media (max-width: 600px) {
-  .polaroid { width: 132px; padding: 10px 10px 14px; }
-  .polaroid-photo { font-size: 24px; margin-bottom: 8px; }
+  .polaroid { width: 148px; padding: 10px 10px 14px; }
+  .polaroid-photo { margin-bottom: 8px; }
   .crew-track-inner { gap: 14px; }
+  .crew-track { max-width: min(520px, 94vw); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .crew-track-inner { animation: none; }
-}
-
-/* --------------------------------------------------------------------------
-   Leadership / officer cards
-   -------------------------------------------------------------------------- */
-
-.team-grid {
-  max-width: 1040px;
-  margin: 0 auto;
-  padding: 0 var(--gutter) 15vh;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 40px;
-}
-
-.team-card {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  padding: 28px 24px;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 0 18px;
-  font-family: var(--serif);
-  font-size: 20px;
-  font-weight: 700;
-  font-style: italic;
-  color: var(--bg);
-  background: var(--rain);
-}
-
-.team-card h3 {
-  margin: 0 0 4px;
-  font-family: var(--serif);
-  font-size: 20px;
-  font-weight: 700;
-  font-style: italic;
-  letter-spacing: 0.4px;
-}
-
-.team-card .role {
-  margin: 0 0 16px;
-  font-size: 12px;
-  letter-spacing: 1.3px;
-  text-transform: uppercase;
-  color: var(--rain);
-}
-
-.team-card .tagline {
-  margin: 0 0 16px;
-  max-width: none;
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.6;
-  letter-spacing: 0.2px;
-  color: var(--fg-body);
-  font-style: italic;
-  animation: none;
-}
-
-.team-card dl {
-  margin: 0;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 6px 10px;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.team-card dt {
-  color: var(--fg-faint);
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-  font-size: 11px;
-  padding-top: 1px;
-}
-
-.team-card dd {
-  margin: 0;
-  color: var(--fg-body);
-}
-
-.team-card dd a {
-  color: var(--fg-body);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  transition: color 0.25s ease, border-color 0.25s ease;
-}
-
-.team-card dd a:hover {
-  color: var(--fg);
-  border-color: var(--fg);
-}
+/* the drift is stopped in script.js when the visitor prefers reduced motion,
+   so the band just sits still on the first three instead of never loading */
 
 /* --------------------------------------------------------------------------
    Hero
@@ -544,6 +563,11 @@ main, .footer, .topbar { position: relative; z-index: 2; }
   margin: 0 auto;
   padding: 15vh var(--gutter);
 }
+
+/* the crew band immediately below brings its own vertical padding —
+   drop this section's bottom padding so the two don't double up */
+.section--leadership { padding-bottom: 0; }
+.section--leadership .section-title { margin-bottom: 0; text-align: center; }
 
 .section-title {
   margin: 0 0 56px;
@@ -668,8 +692,10 @@ main, .footer, .topbar { position: relative; z-index: 2; }
   .social { gap: 24px; }
 }
 
-/* Hide the nav links on very narrow screens so the bar never wraps */
-@media (max-width: 380px) {
+/* Hide the nav links on narrow screens so the bar never wraps — five links
+   (home/meetings/partnerships/resources/contact) need more room than four
+   did, so this now covers phone widths up to ~540px, not just the smallest. */
+@media (max-width: 540px) {
   .topbar-nav { display: none; }
 }
 

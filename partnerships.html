@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>partnerships — hacksu</title>
+<meta name="description" content="sponsor, speak at, recruit from, or support hacksu — the cross-major builder collective at KSU.">
+<meta name="theme-color" content="#000000">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="subpage">
+
+<!-- binary rain background -->
+<canvas id="rain" aria-hidden="true"></canvas>
+<div class="rain-veil" aria-hidden="true"></div>
+
+<header class="topbar" id="topbar">
+  <a class="topbar-mark" href="index.html#top">hacksu</a>
+  <nav class="topbar-nav">
+    <a href="index.html">home</a>
+    <a href="meetings.html">meetings</a>
+    <a href="partnerships.html" class="is-current">partnerships</a>
+    <a href="resources.html">resources</a>
+    <a href="contact.html">contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <div class="subpage-header">
+    <h1 class="section-title reveal">partnerships.</h1>
+    <p class="subpage-intro reveal">
+      hacksu is a room full of people building things across every major at KSU. if you want to
+      sponsor us, speak at an event, recruit from the room, or back what comes out of it &mdash;
+      we&rsquo;d love to hear from you.
+    </p>
+  </div>
+
+  <div class="items-wrap">
+    <h2 class="section-title reveal form-title">tell us what you&rsquo;re thinking.</h2>
+
+    <!--
+      Submits via Formspree (https://formspree.io) — a free form-backend service, since this
+      site has no server of its own. Swap YOUR_FORM_ID below for the real endpoint once the
+      Formspree form is created; script.js intercepts the submit and posts it via fetch so the
+      visitor never leaves the page (see "5. Partnerships form" in script.js).
+    -->
+    <form class="partner-form reveal" id="partnerForm" action="https://formspree.io/f/mljdbaoo" method="POST">
+      <input type="hidden" name="_subject" value="New partnership inquiry — hacksu">
+
+      <div class="field">
+        <label for="p-name">your name <span class="req">*</span></label>
+        <input type="text" id="p-name" name="name" required autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label for="p-org">company, org, or team <span class="req">*</span></label>
+        <input type="text" id="p-org" name="organization" required autocomplete="organization">
+      </div>
+
+      <div class="field">
+        <label for="p-role">your role <span class="req">*</span></label>
+        <input type="text" id="p-role" name="role" required>
+      </div>
+
+      <div class="field">
+        <label for="p-email">work email <span class="req">*</span></label>
+        <input type="email" id="p-email" name="email" required autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label for="p-phone">phone number</label>
+        <input type="tel" id="p-phone" name="phone" autocomplete="tel">
+      </div>
+
+      <fieldset class="field field--group">
+        <legend>what are you interested in? <span class="req">*</span></legend>
+        <div class="checks">
+          <label class="check"><input type="checkbox" name="interest" value="sponsoring hacksu"> sponsoring hacksu</label>
+          <label class="check"><input type="checkbox" name="interest" value="speaking at a meeting or event"> speaking at a meeting or event</label>
+          <label class="check"><input type="checkbox" name="interest" value="running a workshop or tech talk"> running a workshop or tech talk</label>
+          <label class="check"><input type="checkbox" name="interest" value="office hours or mentorship with members"> office hours or mentorship with members</label>
+          <label class="check"><input type="checkbox" name="interest" value="recruiting or sourcing talent"> recruiting or sourcing talent</label>
+          <label class="check"><input type="checkbox" name="interest" value="providing swag, credits, or in-kind support"> providing swag, credits, or in-kind support</label>
+          <label class="check"><input type="checkbox" name="interest" value="something else"> something else</label>
+        </div>
+        <p class="field-error" id="interestError" hidden>pick at least one interest above.</p>
+      </fieldset>
+
+      <div class="field">
+        <label for="p-message">tell us more about what you&rsquo;re thinking. <span class="req">*</span></label>
+        <p class="field-hint">what you&rsquo;d want to do, what you&rsquo;re hoping to get out of it, anything you&rsquo;ve done like this before.</p>
+        <textarea id="p-message" name="message" rows="5" required></textarea>
+      </div>
+
+      <fieldset class="field field--group">
+        <legend>if you&rsquo;re interested in sponsoring, what range are you working with?</legend>
+        <p class="field-hint">totally optional, and skip it if you&rsquo;re not here to sponsor.</p>
+        <div class="radios">
+          <label class="check"><input type="radio" name="budget" value="under $250"> under $250</label>
+          <label class="check"><input type="radio" name="budget" value="$250 to $1,000"> $250 to $1,000</label>
+          <label class="check"><input type="radio" name="budget" value="$1,000 to $5,000"> $1,000 to $5,000</label>
+          <label class="check"><input type="radio" name="budget" value="$5,000+"> $5,000+</label>
+          <label class="check"><input type="radio" name="budget" value="not sure yet"> not sure yet</label>
+          <label class="check"><input type="radio" name="budget" value="not applicable"> not applicable</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field field--group">
+        <legend>what&rsquo;s your timeline?</legend>
+        <div class="radios">
+          <label class="check"><input type="radio" name="timeline" value="this month"> this month</label>
+          <label class="check"><input type="radio" name="timeline" value="next 1 to 2 months"> next 1 to 2 months</label>
+          <label class="check"><input type="radio" name="timeline" value="next semester"> next semester</label>
+          <label class="check"><input type="radio" name="timeline" value="just exploring for now"> just exploring for now</label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="p-additional">anything else we should know?</label>
+        <textarea id="p-additional" name="additional" rows="3"></textarea>
+      </div>
+
+      <div class="field field--submit">
+        <button type="submit" class="btn-send">send</button>
+        <p class="form-status" id="formStatus" role="status" hidden></p>
+      </div>
+    </form>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year">2026</span> hacksu</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

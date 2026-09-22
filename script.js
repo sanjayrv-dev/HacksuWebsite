@@ -298,6 +298,146 @@
     }
   }
 
+  /* ---------------------------------------------------------------------------
+     4. Leadership crew carousel
+
+     A continuously-drifting band of polaroids (see the "leadership" section
+     in index.html), modeled on hackerhousecampus.com's member strip. The
+     track's own width is capped to roughly three cards (.crew-track in
+     styles.css), and the <li> list is a single roster duplicated once back
+     to back, so this only ever has to loop translateX from 0 to -50% and
+     wrap — with six distinct people in rotation and three shown at a time,
+     nobody appears twice in the visible window at once.
+
+     Driven by rAF instead of a CSS animation so hovering the band can ease
+     the speed down smoothly rather than snapping to a hard pause — the
+     per-polaroid color/scale reveal on hover is still plain CSS (:hover).
+     --------------------------------------------------------------------------- */
+
+  var crewTrack = document.getElementById("crewTrack");
+
+  if (crewTrack && !reduceMotion) {
+    var CREW_SPEED = 0.034;       // px/ms while idle — one loop every ~34s
+    var CREW_HOVER_SPEED = 0.018; // px/ms while hovered — a little slower, never stopped
+    var CREW_EASE = 0.05;         // how quickly speed transitions between the two
+
+    var crewPos = 0;
+    var crewSpeed = CREW_SPEED;
+    var crewTargetSpeed = CREW_SPEED;
+    var crewHalfWidth = 0;
+    var crewLast = null;
+    var crewRaf = null;
+
+    function measureCrew() {
+      // The list is the roster duplicated once, so half its width is one
+      // full loop back to the start.
+      crewHalfWidth = crewTrack.scrollWidth / 2;
+    }
+
+    function crewFrame(ts) {
+      if (crewLast === null) crewLast = ts;
+      var dt = Math.min(ts - crewLast, 100); // guard against tab-switch jumps
+      crewLast = ts;
+
+      crewSpeed += (crewTargetSpeed - crewSpeed) * CREW_EASE;
+      crewPos += crewSpeed * dt;
+
+      if (crewHalfWidth > 0 && crewPos >= crewHalfWidth) crewPos -= crewHalfWidth;
+
+      crewTrack.style.transform = "translateX(" + (-crewPos) + "px)";
+      crewRaf = requestAnimationFrame(crewFrame);
+    }
+
+    measureCrew();
+    window.addEventListener("resize", measureCrew);
+
+    var crewTrackEl = crewTrack.closest(".crew-track") || crewTrack;
+    crewTrackEl.addEventListener("mouseenter", function () { crewTargetSpeed = CREW_HOVER_SPEED; });
+    crewTrackEl.addEventListener("mouseleave", function () { crewTargetSpeed = CREW_SPEED; });
+
+    crewRaf = requestAnimationFrame(crewFrame);
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        if (crewRaf) cancelAnimationFrame(crewRaf);
+        crewRaf = null;
+      } else if (!crewRaf) {
+        crewLast = null;
+        crewRaf = requestAnimationFrame(crewFrame);
+      }
+    });
+  }
+
+  /* ---------------------------------------------------------------------------
+     5. Partnerships form
+
+     Posted to Formspree (see the form's `action` in partnerships.html) via
+     fetch instead of a plain HTML submit, so a successful send swaps in a
+     thank-you message in place of the form rather than navigating away to
+     Formspree's own page. Checkbox groups have no native "pick at least one"
+     validation, so that one check is done here.
+     --------------------------------------------------------------------------- */
+
+  var partnerForm = document.getElementById("partnerForm");
+
+  if (partnerForm) {
+    var interestError = document.getElementById("interestError");
+    var formStatus = document.getElementById("formStatus");
+    var sendBtn = partnerForm.querySelector(".btn-send");
+
+    function interestChecked() {
+      return partnerForm.querySelectorAll('input[name="interest"]:checked').length > 0;
+    }
+
+    // Clear the "pick at least one" error the moment one gets checked.
+    var interestBoxes = partnerForm.querySelectorAll('input[name="interest"]');
+    for (var b = 0; b < interestBoxes.length; b++) {
+      interestBoxes[b].addEventListener("change", function () {
+        if (interestChecked()) interestError.hidden = true;
+      });
+    }
+
+    function showStatus(text, kind) {
+      formStatus.textContent = text;
+      formStatus.hidden = false;
+      formStatus.className = "form-status" + (kind ? " " + kind : "");
+    }
+
+    partnerForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      if (!interestChecked()) {
+        interestError.hidden = false;
+        interestError.scrollIntoView({ block: "center", behavior: reduceMotion ? "auto" : "smooth" });
+        return;
+      }
+
+      sendBtn.disabled = true;
+      showStatus("sending…", "");
+
+      fetch(partnerForm.action, {
+        method: "POST",
+        body: new FormData(partnerForm),
+        headers: { "Accept": "application/json" }
+      }).then(function (response) {
+        if (response.ok) {
+          partnerForm.hidden = true;
+          showStatus("thanks — we'll be in touch soon.", "is-ok");
+        } else {
+          return response.json().then(function (data) {
+            var msg = (data && data.errors && data.errors.map(function (er) { return er.message; }).join(", "))
+              || "something went wrong — please email us directly instead.";
+            showStatus(msg, "is-error");
+            sendBtn.disabled = false;
+          });
+        }
+      }).catch(function () {
+        showStatus("something went wrong — please email us directly instead.", "is-error");
+        sendBtn.disabled = false;
+      });
+    });
+  }
+
   /* --------------------------------------------------------------------------- */
 
   var year = document.getElementById("year");
