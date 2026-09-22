@@ -386,16 +386,16 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 
 .crew {
   overflow: hidden;
-  padding: 7vh 0;
+  padding: 10vh 0;
   background: transparent;
 }
 
 .crew-track {
   overflow: hidden;
-  max-width: min(800px, 96vw);
+  max-width: min(900px, 96vw);
   margin: 0 auto;
-  mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
 }
 
 .crew-track-inner {
@@ -411,8 +411,8 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 
 .polaroid {
   flex: 0 0 auto;
-  width: 240px;
-  padding: 14px 14px 24px;
+  width: 295px;
+  padding: 16px 16px 50px;
   background: #0a0a0a;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 2px;
@@ -446,8 +446,11 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 .polaroid-caption {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   margin-top: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .polaroid-caption em {
@@ -472,10 +475,10 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 }
 
 @media (max-width: 600px) {
-  .polaroid { width: 185px; padding: 12px 12px 20px; }
-  .polaroid-photo { margin-bottom: 11px; }
-  .crew-track-inner { gap: 14px; }
-  .crew-track { max-width: min(630px, 96vw); }
+  .polaroid { width: 240px; padding: 13px 13px 38px; }
+  .polaroid-photo { margin-bottom: 12px; }
+  .crew-track-inner { gap: 16px; }
+  .crew-track { max-width: min(740px, 96vw); }
 }
 
 /* the drift is stopped in script.js when the visitor prefers reduced motion,
