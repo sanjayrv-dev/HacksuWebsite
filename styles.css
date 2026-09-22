@@ -392,10 +392,10 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 
 .crew-track {
   overflow: hidden;
-  max-width: min(760px, 94vw);
+  max-width: min(800px, 96vw);
   margin: 0 auto;
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
 }
 
 .crew-track-inner {
@@ -411,14 +411,16 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 
 .polaroid {
   flex: 0 0 auto;
-  width: 245px;
-  padding: 16px 16px 22px;
+  width: 240px;
+  padding: 14px 14px 24px;
   background: #0a0a0a;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 2px;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
   transform: rotate(var(--tilt, 0deg));
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
 }
 
 .polaroid:nth-child(6n+1) { --tilt: -2deg; }
@@ -431,16 +433,22 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 .polaroid-photo {
   display: block;
   width: 100%;
-  aspect-ratio: 1;
-  margin-bottom: 12px;
+  aspect-ratio: 1.05;
+  margin-bottom: 14px;
   object-fit: cover;
   object-position: var(--pos, 50% 50%);
   background: var(--accent, var(--rain));
   filter: grayscale(1) brightness(0.65);
   transition: filter 0.5s ease;
+  flex-shrink: 0;
 }
 
-.polaroid-caption { display: block; }
+.polaroid-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: auto;
+}
 
 .polaroid-caption em {
   display: block;
@@ -450,6 +458,7 @@ main, .footer, .topbar { position: relative; z-index: 2; }
   text-transform: uppercase;
   color: var(--fg-faint);
   transition: color 0.4s ease;
+  line-height: 1.2;
 }
 
 /* only devices with real hover get the reveal-on-hover treatment */
@@ -463,10 +472,10 @@ main, .footer, .topbar { position: relative; z-index: 2; }
 }
 
 @media (max-width: 600px) {
-  .polaroid { width: 190px; padding: 13px 13px 18px; }
-  .polaroid-photo { margin-bottom: 9px; }
-  .crew-track-inner { gap: 16px; }
-  .crew-track { max-width: min(610px, 94vw); }
+  .polaroid { width: 185px; padding: 12px 12px 20px; }
+  .polaroid-photo { margin-bottom: 11px; }
+  .crew-track-inner { gap: 14px; }
+  .crew-track { max-width: min(630px, 96vw); }
 }
 
 /* the drift is stopped in script.js when the visitor prefers reduced motion,
