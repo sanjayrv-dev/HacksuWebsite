@@ -25,6 +25,10 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
   cursor: pointer;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  color: inherit;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   aspect-ratio: 1;
 }
@@ -42,7 +46,7 @@
   height: 100%;
   object-fit: cover;
   object-position: var(--pos, 50% 50%);
-  filter: grayscale(1) brightness(0.7);
+  filter: grayscale(1) brightness(0.8);
   transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -53,17 +57,19 @@
 .officer-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 70%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 24px;
-  transition: opacity 0.3s ease;
 }
 
-.officer-card:hover .officer-overlay {
-  opacity: 0;
-  pointer-events: none;
+.officer-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .officer-info {
@@ -71,7 +77,7 @@
 }
 
 .officer-role {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -141,6 +147,88 @@
     font-size: 14px;
   }
 }
+
+.officer-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+}
+.officer-modal.is-open { display: flex; }
+.officer-modal-box {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: min(820px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 3px solid var(--accent, #22ff88);
+  border-radius: 4px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.officer-modal-box img {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  object-position: var(--pos, 50% 50%);
+}
+.officer-modal-body {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.officer-modal-body h2 { font-size: 34px; margin: 0; color: #fff; }
+.officer-modal-role {
+  color: var(--accent, #22ff88);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.officer-modal-major {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+.officer-modal-link {
+  align-self: flex-start;
+  padding: 10px 18px;
+  border: 1px solid var(--accent, #22ff88);
+  color: var(--accent, #22ff88);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 13px;
+  transition: background 0.2s, color 0.2s;
+}
+.officer-modal-link:hover { background: var(--accent, #22ff88); color: #000; }
+.officer-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 0;
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+@media (max-width: 600px) {
+  .officer-modal-box { grid-template-columns: 1fr; }
+  .officer-modal-box img { min-height: 0; aspect-ratio: 1; }
+  .officer-modal-body { padding: 24px; }
+}
 </style>
 </head>
 <body class="subpage">
@@ -164,79 +252,129 @@
 
   <div class="leadership-header">
     <h1 class="section-title reveal">leadership</h1>
-    <p class="leadership-intro reveal">the people obsessed over their craft. hover to reveal the full color.</p>
+    <p class="leadership-intro reveal">the people obsessed over their craft. hover for color, click for more.</p>
   </div>
 
   <div class="leadership-grid reveal">
 
-    <div class="officer-card" style="--accent:#22ff88">
-      <img class="officer-photo" src="images/officers/sanjay.jpg" alt="" style="--pos:60% 45%">
+    <button type="button" class="officer-card" style="--accent:#22ff88" data-name="Sanjay" data-role="President" data-major="CS+Math" data-linkedin="https://www.linkedin.com/in/sanjayrv" data-photo="images/officers/sanjay.jpg" data-pos="60% 45%" aria-label="Sanjay, President — view details">
+      <img class="officer-photo" src="images/officers/sanjay.jpg" alt="Sanjay" style="--pos:60% 45%">
       <div class="officer-overlay">
         <div class="officer-info">
-          <div class="officer-role">Prezzy-dent</div>
+          <div class="officer-name">Sanjay</div>
+          <div class="officer-role">President</div>
           <div class="officer-major">CS+Math</div>
         </div>
       </div>
-    </div>
+    </button>
 
-    <div class="officer-card" style="--accent:#22d3ee">
-      <img class="officer-photo" src="images/officers/prannav.jpg" alt="" style="--pos:50% 30%">
+    <button type="button" class="officer-card" style="--accent:#22d3ee" data-name="Prannav" data-role="Vice President" data-major="ME" data-linkedin="https://www.linkedin.com/in/saiprannavmurali/" data-photo="images/officers/prannav.jpg" data-pos="50% 30%" aria-label="Prannav, Vice President — view details">
+      <img class="officer-photo" src="images/officers/prannav.jpg" alt="Prannav" style="--pos:50% 30%">
       <div class="officer-overlay">
         <div class="officer-info">
-          <div class="officer-role">Vice-Prezzy</div>
+          <div class="officer-name">Prannav</div>
+          <div class="officer-role">Vice President</div>
           <div class="officer-major">ME</div>
         </div>
       </div>
-    </div>
+    </button>
 
-    <div class="officer-card" style="--accent:#a78bfa">
-      <img class="officer-photo" src="images/officers/akshat.jpg" alt="" style="--pos:50% 50%">
+    <button type="button" class="officer-card" style="--accent:#a78bfa" data-name="Akshat" data-role="Secretary" data-major="CPE" data-linkedin="https://www.linkedin.com/in/sai-akshat-chitta/" data-photo="images/officers/akshat.jpg" data-pos="50% 50%" aria-label="Akshat, Secretary — view details">
+      <img class="officer-photo" src="images/officers/akshat.jpg" alt="Akshat" style="--pos:50% 50%">
       <div class="officer-overlay">
         <div class="officer-info">
-          <div class="officer-role">Sec-re-dairy</div>
+          <div class="officer-name">Akshat</div>
+          <div class="officer-role">Secretary</div>
           <div class="officer-major">CPE</div>
         </div>
       </div>
-    </div>
+    </button>
 
-    <div class="officer-card" style="--accent:#60a5fa">
-      <img class="officer-photo" src="images/officers/alex.jpg" alt="" style="--pos:50% 28%">
+    <button type="button" class="officer-card" style="--accent:#60a5fa" data-name="Alex" data-role="Head of Marketing" data-major="CPE" data-linkedin="https://www.linkedin.com/in/alexander-rostovtsev-941ab938a/" data-photo="images/officers/alex.jpg" data-pos="50% 28%" aria-label="Alex, Head of Marketing — view details">
+      <img class="officer-photo" src="images/officers/alex.jpg" alt="Alex" style="--pos:50% 28%">
       <div class="officer-overlay">
         <div class="officer-info">
-          <div class="officer-role">Marketing</div>
+          <div class="officer-name">Alex</div>
+          <div class="officer-role">Head of Marketing</div>
           <div class="officer-major">CPE</div>
         </div>
       </div>
-    </div>
+    </button>
 
-    <div class="officer-card" style="--accent:#fbbf24">
-      <img class="officer-photo" src="images/officers/amrit.jpg" alt="" style="--pos:50% 38%">
+    <button type="button" class="officer-card" style="--accent:#fbbf24" data-name="Amrit" data-role="Reservation Delegate" data-major="IET" data-linkedin="https://www.linkedin.com/in/amrit-sarangi-758019316/" data-photo="images/officers/amrit.jpg" data-pos="50% 38%" aria-label="Amrit, Reservation Delegate — view details">
+      <img class="officer-photo" src="images/officers/amrit.jpg" alt="Amrit" style="--pos:50% 38%">
       <div class="officer-overlay">
         <div class="officer-info">
-          <div class="officer-role">Reservation Degenerate</div>
+          <div class="officer-name">Amrit</div>
+          <div class="officer-role">Reservation Delegate</div>
           <div class="officer-major">IET</div>
         </div>
       </div>
-    </div>
+    </button>
 
-    <div class="officer-card" style="--accent:#fb7185">
-      <img class="officer-photo" src="images/officers/ishika.jpg" alt="" style="--pos:50% 20%">
+    <button type="button" class="officer-card" style="--accent:#fb7185" data-name="Ishika" data-role="Treasurer" data-major="ISyE" data-linkedin="https://www.linkedin.com/in/ishikav18/" data-photo="images/officers/ishika.jpg" data-pos="50% 20%" aria-label="Ishika, Treasurer — view details">
+      <img class="officer-photo" src="images/officers/ishika.jpg" alt="Ishika" style="--pos:50% 20%">
       <div class="officer-overlay">
         <div class="officer-info">
-          <div class="officer-role">Treasu-rawr</div>
+          <div class="officer-name">Ishika</div>
+          <div class="officer-role">Treasurer</div>
           <div class="officer-major">ISyE</div>
         </div>
       </div>
-    </div>
+    </button>
 
   </div>
 
 </main>
+
+<div class="officer-modal" id="officer-modal" role="dialog" aria-modal="true" aria-labelledby="om-name">
+  <div class="officer-modal-box">
+    <button type="button" class="officer-modal-close" id="om-close" aria-label="Close">&times;</button>
+    <img id="om-photo" src="" alt="">
+    <div class="officer-modal-body">
+      <h2 id="om-name"></h2>
+      <div class="officer-modal-role" id="om-role"></div>
+      <div class="officer-modal-major" id="om-major"></div>
+      <a class="officer-modal-link" id="om-link" href="#" target="_blank" rel="noopener">linkedin &rarr;</a>
+    </div>
+  </div>
+</div>
 
 <footer class="footer">
   <p>&copy; <span id="year">2026</span> hacksu</p>
 </footer>
 
 <script src="script.js"></script>
+<script>
+(function () {
+  var modal = document.getElementById('officer-modal');
+  var box = modal.querySelector('.officer-modal-box');
+  var last = null;
+  function open(card) {
+    last = card;
+    var d = card.dataset;
+    box.style.setProperty('--accent', card.style.getPropertyValue('--accent'));
+    box.style.setProperty('--pos', d.pos);
+    document.getElementById('om-photo').src = d.photo;
+    document.getElementById('om-photo').alt = d.name;
+    document.getElementById('om-name').textContent = d.name;
+    document.getElementById('om-role').textContent = d.role;
+    document.getElementById('om-major').textContent = d.major;
+    document.getElementById('om-link').href = d.linkedin;
+    modal.classList.add('is-open');
+    document.getElementById('om-close').focus();
+  }
+  function close() {
+    modal.classList.remove('is-open');
+    if (last) last.focus();
+  }
+  document.querySelectorAll('.officer-card').forEach(function (c) {
+    c.addEventListener('click', function () { open(c); });
+  });
+  document.getElementById('om-close').addEventListener('click', close);
+  modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+</script>
 </body>
 </html>
