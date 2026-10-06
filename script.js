@@ -20,7 +20,7 @@ var OFFICERS = [
   { name: "Prannav", role: "Vice President",       major: "ME",        color: "#22d3ee", pos: "50% 30%", photo: "images/officers/prannav.jpg", linkedin: "https://www.linkedin.com/in/saiprannavmurali/" },
   { name: "Akshat",  role: "Secretary",            major: "CPE",       color: "#a78bfa", pos: "50% 50%", photo: "images/officers/akshat.jpg",  linkedin: "https://www.linkedin.com/in/sai-akshat-chitta/" },
   { name: "Alex",    role: "Head of Marketing",    major: "CPE",       color: "#60a5fa", pos: "50% 28%", photo: "images/officers/alex.jpg",    linkedin: "https://www.linkedin.com/in/alexander-rostovtsev-941ab938a/" },
-  { name: "Amrit",   role: "Reservation Delegate", major: "IET",       color: "#fbbf24", pos: "50% 38%", photo: "images/officers/amrit.jpg",   linkedin: "https://www.linkedin.com/in/amrit-sarangi-758019316/" },
+  { name: "Amrit",   role: "Reservation Delegate", major: "ISyE",       color: "#fbbf24", pos: "50% 38%", photo: "images/officers/amrit.jpg",   linkedin: "https://www.linkedin.com/in/amrit-sarangi-758019316/" },
   { name: "Ishika",  role: "Treasurer",            major: "ISyE",      color: "#fb7185", pos: "50% 20%", photo: "images/officers/ishika.jpg",  linkedin: "https://www.linkedin.com/in/ishikav18/" }
 ];
 
@@ -38,7 +38,7 @@ var OFFICERS = [
      start: "2026-10-15T18:00",
      durationMinutes: 90,
      locationName: "Student Center, Room 000",
-     address: "Kent State University, Kent, OH",
+     address: "Kennesaw State University, Kennesaw, GA",
      mapQuery: "", mapEmbedUrl: "", onlineUrl: ""
    }
 */
