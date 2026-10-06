@@ -1,63 +1,21 @@
 # hacksu
 
-Static site. No build step, no dependencies — three files.
+Static site, no build step. Five pages share one stylesheet and one script.
 
 ```
-index.html    content
-styles.css    design system (all knobs live in :root)
-script.js     binary rain, scroll reveals, top bar
+index.html  leadership.html  meetings.html  resources.html  contact.html
+styles.css   design tokens in :root, responsive breakpoints
+script.js    config block at the top + rain, menu, officers, meetings engine
 ```
 
-## Run it
+Run locally: `python -m http.server 4321`, then open http://localhost:4321
 
-```bash
-python3 -m http.server 4321
-```
+## Routine edits (all in the `EDIT HERE` block at the top of script.js)
 
-Then open http://localhost:4321. (Opening `index.html` directly works too, but a
-server is closer to how it'll actually be hosted.)
+- **Links / email**: `SITE` (Discord, Instagram, LinkedIn, email, extra links shown on Contact + Resources).
+- **Officers**: `OFFICERS` array (photos live in `images/officers/`).
+- **Meetings**: `EVENTS` array. Times are in `SITE.timezone`; past meetings vanish automatically; the
+  next one gets a countdown chip, map, and Google/Outlook/.ics buttons. Empty array shows a "no meetings yet" card.
+- **Colours / fonts**: `:root` in styles.css (`--rain` also recolours the binary rain).
 
-## Things you'll want to change first
-
-**Social links** — `index.html`, the `.social` nav. Discord and Instagram are
-live; **linkedin is still an `href="#"` placeholder**. Add an email one by
-copying a line and using `href="mailto:you@example.com"`.
-
-**Colors** — `styles.css`, `:root`. `--rain` sets the binary green; the JS reads
-it from there, so changing that one value recolors the background.
-
-**Rain feel** — `script.js`, the `RAIN` object at the top:
-
-| knob | does |
-|---|---|
-| `fontSize` | column width and character size |
-| `speed` | how fast drops fall — lower is slower |
-| `fade` | trail length — **lower is longer** |
-| `density` | fraction of columns active; lower leaves more gaps |
-| `glow` | bloom on the leading digit; `0` turns it off |
-| `glitch` | how often digits flicker mid-trail |
-| `trailDim` | brightness of the trail vs. the bright head |
-| `flushEvery` / `flushFade` | keeps the background truly black — see below |
-
-Two notes on that last pair. A single gentle per-frame fade can never actually
-reach zero: at 8 bits per channel the decay rounds a dim pixel back to itself,
-so spent trails pile up into a permanent green haze. Every `flushEvery` frames
-the code takes a bigger bite (`flushFade`) that's large enough to round faint
-pixels the rest of the way out. If you lower `fade` for even longer trails and
-the black starts looking milky, raise `flushFade` slightly.
-
-The rain is also simulated forward ~140 frames before the first paint, so the
-page opens on a full curtain instead of filling in over several seconds.
-
-## Adding sections later
-
-Copy a `<section class="section">` block. Put `reveal` on anything that should
-fade up as it scrolls into view — the observer picks it up automatically.
-
-The students and patrons sections were left out on purpose. When you add them,
-they slot in after `#about`.
-
-## Deploying
-
-Any static host works. Drag the folder into Netlify, or push to GitHub and turn
-on Pages — there's nothing to compile.
+Nav/footer markup is repeated in each HTML file; edit all five when changing it.

@@ -2,47 +2,83 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>resources — hacksu</title>
-<meta name="description" content="resources for hacksu members — the cross-major builder collective at KSU.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>resources | hacksu</title>
+<meta name="description" content="Guides, tools, and links for hacksu members.">
 <meta name="theme-color" content="#000000">
-
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://hacksu.org/resources.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="hacksu">
+<meta property="og:title" content="resources | hacksu">
+<meta property="og:description" content="Guides, tools, and links for hacksu members.">
+<meta property="og:url" content="https://hacksu.org/resources.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="resources | hacksu">
+<meta name="twitter:description" content="Guides, tools, and links for hacksu members.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Cpath d='M22 20l-12 12 12 12M42 20l12 12-12 12M35 16l-6 32' fill='none' stroke='%2300ff41' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script>document.documentElement.className += " js";</script>
 <link rel="stylesheet" href="styles.css">
 </head>
-<body class="subpage">
-
-<!-- binary rain background -->
+<body>
 <canvas id="rain" aria-hidden="true"></canvas>
 <div class="rain-veil" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<header class="topbar" id="topbar">
-  <a class="topbar-mark" href="index.html#top">hacksu</a>
-  <nav class="topbar-nav">
-    <a href="index.html">home</a>
-    <a href="leadership.html">leadership</a>
-    <a href="meetings.html">meetings</a>
-    <a href="resources.html" class="is-current">resources</a>
-    <a href="contact.html">contact</a>
-  </nav>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="hacksu home">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#000" stroke="#00ff41"/><path d="M22 20l-12 12 12 12M42 20l12 12-12 12M35 16l-6 32" fill="none" stroke="#00ff41" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>hacksu</span>
+    </a>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      <ul>
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="leadership.html">Leadership</a></li>
+        <li><a class="nav-link" href="meetings.html">Meetings</a></li>
+        <li><a class="nav-link" href="resources.html" aria-current="page">Resources</a></li>
+        <li><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="menu-cta"><a class="btn btn-primary" data-link="discordUrl" target="_blank" rel="noopener noreferrer"><span data-icon="discord"></span>Join Discord</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary btn-sm hdr-cta" data-link="discordUrl" target="_blank" rel="noopener noreferrer"><span data-icon="discord"></span>Join Discord</a>
+    <button class="btn nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="icon-menu" data-icon="menu"></span><span class="icon-close" data-icon="close"></span></button>
+  </div>
 </header>
 
-<main>
-
-  <div class="subpage-header">
-    <h1 class="section-title reveal">resources</h1>
-    <p class="subpage-intro reveal">guides, tools, and links for members.</p>
-  </div>
-
-  <div class="coming-soon">
-    <p class="reveal">this page is still being put together &mdash; check back soon, or ask in Discord if there&rsquo;s something specific you&rsquo;re looking for.</p>
-  </div>
-
+<main id="main">
+  <section class="section page-head">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">// resources</p>
+        <h1>Resources</h1>
+        <p>Guides, tools, and links for members.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="padding-top:var(--s6)">
+    <div class="container">
+      <div class="link-grid" data-links="custom"></div>
+      <p class="notice reveal" style="margin-top:var(--s5)">More guides are on the way. Ask in <a data-link="discordUrl" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">Discord</a> if you&rsquo;re looking for something specific.</p>
+    </div>
+  </section>
 </main>
 
-<footer class="footer">
-  <p>&copy; <span id="year">2026</span> hacksu</p>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span data-year>2026</span> hacksu. Built by students, for students.</p>
+    <div class="footer-links">
+      <a data-email data-email-text href="#" hidden></a>
+      <a data-link="instagramUrl" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="#main">Back to top</a>
+    </div>
+  </div>
 </footer>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="script.js"></script>
 </body>
 </html>

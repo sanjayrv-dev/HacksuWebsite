@@ -2,379 +2,95 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>leadership — hacksu</title>
-<meta name="description" content="meet the leaders behind hacksu — the cross-major builder collective at KSU.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>leadership | hacksu</title>
+<meta name="description" content="Meet the officers behind hacksu, the cross-major builder collective at Kent State.">
 <meta name="theme-color" content="#000000">
-
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://hacksu.org/leadership.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="hacksu">
+<meta property="og:title" content="leadership | hacksu">
+<meta property="og:description" content="Meet the officers behind hacksu, the cross-major builder collective at Kent State.">
+<meta property="og:url" content="https://hacksu.org/leadership.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="leadership | hacksu">
+<meta name="twitter:description" content="Meet the officers behind hacksu, the cross-major builder collective at Kent State.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Cpath d='M22 20l-12 12 12 12M42 20l12 12-12 12M35 16l-6 32' fill='none' stroke='%2300ff41' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script>document.documentElement.className += " js";</script>
 <link rel="stylesheet" href="styles.css">
-<style>
-.leadership-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
-  max-width: 100%;
-  padding: 8vw;
-  margin: 0;
-}
-
-.officer-card {
-  position: relative;
-  overflow: hidden;
-  background: rgba(10, 10, 10, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 0;
-  font: inherit;
-  text-align: left;
-  color: inherit;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  aspect-ratio: 1;
-}
-
-.officer-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-}
-
-.officer-photo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: var(--pos, 50% 50%);
-  filter: grayscale(1) brightness(0.8);
-  transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.officer-card:hover .officer-photo {
-  filter: grayscale(0) brightness(1);
-}
-
-.officer-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 70%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
-}
-
-.officer-name {
-  font-size: 26px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 6px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.officer-info {
-  z-index: 2;
-}
-
-.officer-role {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent, #22ff88);
-  margin-bottom: 8px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.officer-major {
-  font-size: 13px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.leadership-header {
-  max-width: 100%;
-  padding: 140px 8vw 0;
-  margin: 0;
-}
-
-.leadership-header .section-title {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.leadership-intro {
-  max-width: 800px;
-  margin: 0 auto 80px;
-  text-align: center;
-  font-size: clamp(16px, 2vw, 20px);
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
-  font-style: italic;
-}
-
-@media (max-width: 900px) {
-  .leadership-grid {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    padding: 8vw;
-  }
-}
-
-@media (max-width: 600px) {
-  .leadership-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    padding: 6vw;
-  }
-
-  .officer-role {
-    font-size: 14px;
-  }
-
-  .officer-major {
-    font-size: 11px;
-  }
-
-  .leadership-header {
-    padding: 100px 6vw 0;
-  }
-
-  .leadership-intro {
-    margin-bottom: 50px;
-    font-size: 14px;
-  }
-}
-
-.officer-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(6px);
-}
-.officer-modal.is-open { display: flex; }
-.officer-modal-box {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: min(820px, 100%);
-  max-height: 90vh;
-  overflow: auto;
-  background: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-top: 3px solid var(--accent, #22ff88);
-  border-radius: 4px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-.officer-modal-box img {
-  width: 100%;
-  height: 100%;
-  min-height: 320px;
-  object-fit: cover;
-  object-position: var(--pos, 50% 50%);
-}
-.officer-modal-body {
-  padding: 40px 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-}
-.officer-modal-body h2 { font-size: 34px; margin: 0; color: #fff; }
-.officer-modal-role {
-  color: var(--accent, #22ff88);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 14px;
-  font-weight: 700;
-}
-.officer-modal-major {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 15px;
-  margin-bottom: 20px;
-}
-.officer-modal-link {
-  align-self: flex-start;
-  padding: 10px 18px;
-  border: 1px solid var(--accent, #22ff88);
-  color: var(--accent, #22ff88);
-  text-decoration: none;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 13px;
-  transition: background 0.2s, color 0.2s;
-}
-.officer-modal-link:hover { background: var(--accent, #22ff88); color: #000; }
-.officer-modal-close {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  background: rgba(0, 0, 0, 0.5);
-  border: 0;
-  color: #fff;
-  font-size: 28px;
-  line-height: 1;
-  cursor: pointer;
-  z-index: 2;
-}
-@media (max-width: 600px) {
-  .officer-modal-box { grid-template-columns: 1fr; }
-  .officer-modal-box img { min-height: 0; aspect-ratio: 1; }
-  .officer-modal-body { padding: 24px; }
-}
-</style>
 </head>
-<body class="subpage">
-
-<!-- binary rain background -->
+<body>
 <canvas id="rain" aria-hidden="true"></canvas>
 <div class="rain-veil" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<header class="topbar" id="topbar">
-  <a class="topbar-mark" href="index.html#top">hacksu</a>
-  <nav class="topbar-nav">
-    <a href="index.html">home</a>
-    <a href="leadership.html" class="is-current">leadership</a>
-    <a href="meetings.html">meetings</a>
-    <a href="resources.html">resources</a>
-    <a href="contact.html">contact</a>
-  </nav>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="hacksu home">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#000" stroke="#00ff41"/><path d="M22 20l-12 12 12 12M42 20l12 12-12 12M35 16l-6 32" fill="none" stroke="#00ff41" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>hacksu</span>
+    </a>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      <ul>
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="leadership.html" aria-current="page">Leadership</a></li>
+        <li><a class="nav-link" href="meetings.html">Meetings</a></li>
+        <li><a class="nav-link" href="resources.html">Resources</a></li>
+        <li><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="menu-cta"><a class="btn btn-primary" data-link="discordUrl" target="_blank" rel="noopener noreferrer"><span data-icon="discord"></span>Join Discord</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary btn-sm hdr-cta" data-link="discordUrl" target="_blank" rel="noopener noreferrer"><span data-icon="discord"></span>Join Discord</a>
+    <button class="btn nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="icon-menu" data-icon="menu"></span><span class="icon-close" data-icon="close"></span></button>
+  </div>
 </header>
 
-<main>
-
-  <div class="leadership-header">
-    <h1 class="section-title reveal">leadership</h1>
-    <p class="leadership-intro reveal">the people obsessed over their craft. hover for color, click for more.</p>
-  </div>
-
-  <div class="leadership-grid reveal">
-
-    <button type="button" class="officer-card" style="--accent:#22ff88" data-name="Sanjay" data-role="President" data-major="CS+Math" data-linkedin="https://www.linkedin.com/in/sanjayrv" data-photo="images/officers/sanjay.jpg" data-pos="60% 45%" aria-label="Sanjay, President — view details">
-      <img class="officer-photo" src="images/officers/sanjay.jpg" alt="Sanjay" style="--pos:60% 45%">
-      <div class="officer-overlay">
-        <div class="officer-info">
-          <div class="officer-name">Sanjay</div>
-          <div class="officer-role">President</div>
-          <div class="officer-major">CS+Math</div>
-        </div>
+<main id="main">
+  <section class="section page-head">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">// leadership</p>
+        <h1>Leadership</h1>
+        <p>The people obsessed over their craft. Tap a card for more.</p>
       </div>
-    </button>
-
-    <button type="button" class="officer-card" style="--accent:#22d3ee" data-name="Prannav" data-role="Vice President" data-major="ME" data-linkedin="https://www.linkedin.com/in/saiprannavmurali/" data-photo="images/officers/prannav.jpg" data-pos="50% 30%" aria-label="Prannav, Vice President — view details">
-      <img class="officer-photo" src="images/officers/prannav.jpg" alt="Prannav" style="--pos:50% 30%">
-      <div class="officer-overlay">
-        <div class="officer-info">
-          <div class="officer-name">Prannav</div>
-          <div class="officer-role">Vice President</div>
-          <div class="officer-major">ME</div>
-        </div>
-      </div>
-    </button>
-
-    <button type="button" class="officer-card" style="--accent:#a78bfa" data-name="Akshat" data-role="Secretary" data-major="CPE" data-linkedin="https://www.linkedin.com/in/sai-akshat-chitta/" data-photo="images/officers/akshat.jpg" data-pos="50% 50%" aria-label="Akshat, Secretary — view details">
-      <img class="officer-photo" src="images/officers/akshat.jpg" alt="Akshat" style="--pos:50% 50%">
-      <div class="officer-overlay">
-        <div class="officer-info">
-          <div class="officer-name">Akshat</div>
-          <div class="officer-role">Secretary</div>
-          <div class="officer-major">CPE</div>
-        </div>
-      </div>
-    </button>
-
-    <button type="button" class="officer-card" style="--accent:#60a5fa" data-name="Alex" data-role="Head of Marketing" data-major="CPE" data-linkedin="https://www.linkedin.com/in/alexander-rostovtsev-941ab938a/" data-photo="images/officers/alex.jpg" data-pos="50% 28%" aria-label="Alex, Head of Marketing — view details">
-      <img class="officer-photo" src="images/officers/alex.jpg" alt="Alex" style="--pos:50% 28%">
-      <div class="officer-overlay">
-        <div class="officer-info">
-          <div class="officer-name">Alex</div>
-          <div class="officer-role">Head of Marketing</div>
-          <div class="officer-major">CPE</div>
-        </div>
-      </div>
-    </button>
-
-    <button type="button" class="officer-card" style="--accent:#fbbf24" data-name="Amrit" data-role="Reservation Delegate" data-major="IET" data-linkedin="https://www.linkedin.com/in/amrit-sarangi-758019316/" data-photo="images/officers/amrit.jpg" data-pos="50% 38%" aria-label="Amrit, Reservation Delegate — view details">
-      <img class="officer-photo" src="images/officers/amrit.jpg" alt="Amrit" style="--pos:50% 38%">
-      <div class="officer-overlay">
-        <div class="officer-info">
-          <div class="officer-name">Amrit</div>
-          <div class="officer-role">Reservation Delegate</div>
-          <div class="officer-major">IET</div>
-        </div>
-      </div>
-    </button>
-
-    <button type="button" class="officer-card" style="--accent:#fb7185" data-name="Ishika" data-role="Treasurer" data-major="ISyE" data-linkedin="https://www.linkedin.com/in/ishikav18/" data-photo="images/officers/ishika.jpg" data-pos="50% 20%" aria-label="Ishika, Treasurer — view details">
-      <img class="officer-photo" src="images/officers/ishika.jpg" alt="Ishika" style="--pos:50% 20%">
-      <div class="officer-overlay">
-        <div class="officer-info">
-          <div class="officer-name">Ishika</div>
-          <div class="officer-role">Treasurer</div>
-          <div class="officer-major">ISyE</div>
-        </div>
-      </div>
-    </button>
-
-  </div>
-
-</main>
-
-<div class="officer-modal" id="officer-modal" role="dialog" aria-modal="true" aria-labelledby="om-name">
-  <div class="officer-modal-box">
-    <button type="button" class="officer-modal-close" id="om-close" aria-label="Close">&times;</button>
+    </div>
+  </section>
+  <section class="section" style="padding-top:var(--s6)">
+    <div class="container">
+      <div class="officers" data-officers></div>
+      <noscript><p class="noscript-note">JavaScript is needed to show the officers. Visit our Discord to meet the team.</p></noscript>
+    </div>
+  </section>
+<div class="modal" id="officer-modal" role="dialog" aria-modal="true" aria-labelledby="om-name">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="om-close" aria-label="Close"><span data-icon="close"></span></button>
     <img id="om-photo" src="" alt="">
-    <div class="officer-modal-body">
+    <div class="modal-body">
       <h2 id="om-name"></h2>
-      <div class="officer-modal-role" id="om-role"></div>
-      <div class="officer-modal-major" id="om-major"></div>
-      <a class="officer-modal-link" id="om-link" href="#" target="_blank" rel="noopener">linkedin &rarr;</a>
+      <div class="modal-role" id="om-role"></div>
+      <div class="modal-major" id="om-major"></div>
+      <a class="btn" id="om-link" href="#" target="_blank" rel="noopener noreferrer"><span data-icon="linkedin"></span>LinkedIn<span data-icon="external"></span></a>
     </div>
   </div>
 </div>
+</main>
 
-<footer class="footer">
-  <p>&copy; <span id="year">2026</span> hacksu</p>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span data-year>2026</span> hacksu. Built by students, for students.</p>
+    <div class="footer-links">
+      <a data-email data-email-text href="#" hidden></a>
+      <a data-link="instagramUrl" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="#main">Back to top</a>
+    </div>
+  </div>
 </footer>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="script.js"></script>
-<script>
-(function () {
-  var modal = document.getElementById('officer-modal');
-  var box = modal.querySelector('.officer-modal-box');
-  var last = null;
-  function open(card) {
-    last = card;
-    var d = card.dataset;
-    box.style.setProperty('--accent', card.style.getPropertyValue('--accent'));
-    box.style.setProperty('--pos', d.pos);
-    document.getElementById('om-photo').src = d.photo;
-    document.getElementById('om-photo').alt = d.name;
-    document.getElementById('om-name').textContent = d.name;
-    document.getElementById('om-role').textContent = d.role;
-    document.getElementById('om-major').textContent = d.major;
-    document.getElementById('om-link').href = d.linkedin;
-    modal.classList.add('is-open');
-    document.getElementById('om-close').focus();
-  }
-  function close() {
-    modal.classList.remove('is-open');
-    if (last) last.focus();
-  }
-  document.querySelectorAll('.officer-card').forEach(function (c) {
-    c.addEventListener('click', function () { open(c); });
-  });
-  document.getElementById('om-close').addEventListener('click', close);
-  modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-})();
-</script>
 </body>
 </html>
