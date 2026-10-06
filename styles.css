@@ -454,8 +454,11 @@ details.map-details .map-wrap { margin-top: var(--s3); }
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 600ms var(--ease), transform 600ms var(--ease); }
-.js .reveal.in { opacity: 1; transform: none; }
+.js .reveal {
+  opacity: 0; translate: 0 18px;   /* `translate` so it never fights hover `transform` */
+  transition: opacity 600ms var(--ease), translate 600ms var(--ease), transform 0.3s var(--ease), border-color var(--t), box-shadow var(--t);
+}
+.js .reveal.in { opacity: 1; translate: none; }
 .js .stagger > .reveal:nth-child(2) { transition-delay: 80ms; }
 .js .stagger > .reveal:nth-child(3) { transition-delay: 160ms; }
 .js .stagger > .reveal:nth-child(4) { transition-delay: 240ms; }
@@ -510,5 +513,5 @@ details.map-details .map-wrap { margin-top: var(--s3); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-  .js .reveal { opacity: 1; transform: none; }
+  .js .reveal { opacity: 1; translate: none; }
 }

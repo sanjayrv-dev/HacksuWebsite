@@ -131,6 +131,7 @@ var EVENTS = [];
     $$("[data-email]").forEach(function (a) {
       if (/^[^\s@]+@[^\s@]+$/.test(email)) {
         a.href = "mailto:" + email;
+        a.hidden = false;
         if (a.hasAttribute("data-email-text")) a.textContent = email;
       } else a.hidden = true;
     });
