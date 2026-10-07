@@ -515,3 +515,5 @@ details.map-details .map-wrap { margin-top: var(--s3); }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .js .reveal { opacity: 1; translate: none; }
 }
+
+@media (min-width: 900px) { .pillars.three { grid-template-columns: repeat(3, 1fr); } }
