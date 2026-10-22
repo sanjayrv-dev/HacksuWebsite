@@ -17,8 +17,8 @@ var SITE = {
 /* Officers, in display order. pos = object-position for the photo crop. */
 var OFFICERS = [
   { name: "Sanjay",  role: "President",            major: "CS + Math", color: "#22ff88", pos: "60% 45%", photo: "images/officers/sanjay.jpg",  linkedin: "https://www.linkedin.com/in/sanjayrv" },
-  { name: "Prannav", role: "Vice President",       major: "ME",        color: "#22d3ee", pos: "50% 30%", photo: "images/officers/prannav.jpg", linkedin: "https://www.linkedin.com/in/saiprannavmurali/" },
-  { name: "Akshat",  role: "Secretary",            major: "CPE",       color: "#a78bfa", pos: "50% 50%", photo: "images/officers/akshat.jpg",  linkedin: "https://www.linkedin.com/in/sai-akshat-chitta/" },
+  { name: "Akshat",  role: "Vice President",       major: "CPE",       color: "#a78bfa", pos: "50% 50%", photo: "images/officers/akshat.jpg",  linkedin: "https://www.linkedin.com/in/sai-akshat-chitta/" },
+  { name: "Prannav", role: "Secretary",            major: "ME",        color: "#22d3ee", pos: "50% 30%", photo: "images/officers/prannav.jpg", linkedin: "https://www.linkedin.com/in/saiprannavmurali/" },
   { name: "Alex",    role: "Head of Marketing",    major: "CPE",       color: "#60a5fa", pos: "50% 28%", photo: "images/officers/alex.jpg",    linkedin: "https://www.linkedin.com/in/alexander-rostovtsev-941ab938a/" },
   { name: "Amrit",   role: "Reservation Delegate", major: "ISyE",       color: "#fbbf24", pos: "50% 38%", photo: "images/officers/amrit.jpg",   linkedin: "https://www.linkedin.com/in/amrit-sarangi-758019316/" },
   { name: "Ishika",  role: "Treasurer",            major: "ISyE",      color: "#fb7185", pos: "50% 20%", photo: "images/officers/ishika.jpg",  linkedin: "https://www.linkedin.com/in/ishikav18/" }
