@@ -1,21 +1,46 @@
-# hacksu
+# hacksu room (3D site prototype)
 
-Static site, no build step. Six pages share one stylesheet and one script.
+Static site, no build step: `index.html` (three.js r128 from cdnjs, Archivo from Google Fonts) + `img/` (officer photos).
+Pages (nav + clickable room objects): about, leadership, partnerships, resources, gallery, meetings, contact.
+Placeholders still in [brackets]: club email, discord invite, instagram handle, meeting day/time/room, advisor blurb, sponsor logos, suitable-page URL.
 
+## Branches
+
+- `main` is the live site at hacksu.org (the current green-rain site). Don't push to it.
+- `dev` is this room site. All work on the room happens here.
+
+## Getting started
+
+You need git and Python 3, plus collaborator access to https://github.com/sanjayrv-dev/HacksuWebsite (ask Sanjay).
+
+```bash
+git clone https://github.com/sanjayrv-dev/HacksuWebsite.git
+cd HacksuWebsite
+git switch dev
+python -m http.server 4321
 ```
-index.html  leadership.html  meetings.html  resources.html  partnership.html  contact.html
-styles.css   design tokens in :root, responsive breakpoints
-script.js    config block at the top + rain, menu, officers, meetings engine
+
+Then open http://localhost:4321. Use the local server: if you double-click `index.html` instead, some browsers won't load the photos.
+
+## Making changes
+
+1. `git switch dev` and `git pull` before you start.
+2. Edit `index.html`. Content (pages, officers, events) is in the `content` block near the top of the script; the 3D room is under `3d`.
+3. Refresh http://localhost:4321 to check it.
+4. Commit and push to dev:
+
+```bash
+git add -A
+git commit -m "describe your change"
+git push origin dev
 ```
 
-Run locally: `python -m http.server 4321`, then open http://localhost:4321
+## Working with Claude
 
-## Routine edits (all in the `EDIT HERE` block at the top of script.js)
+`CLAUDE.md` holds the project rules (branches, the "hacksu" spelling, how to preview), and Claude reads it automatically. Open this folder in Claude Code while on `dev`, and Claude previews the site with the `hacksu` launch config.
 
-- **Links / email**: `SITE` (Discord, Instagram, LinkedIn, email, extra links shown on Contact + Resources).
-- **Officers**: `OFFICERS` array (photos live in `images/officers/`).
-- **Meetings**: `EVENTS` array. Times are in `SITE.timezone`; past meetings vanish automatically; the
-  next one gets a countdown chip, map, and Google/Outlook/.ics buttons. Empty array shows a "no meetings yet" card.
-- **Colours / fonts**: `:root` in styles.css (`--rain` also recolours the binary rain).
+## Editing tips
 
-Nav/footer markup is repeated in each HTML file; edit all six when changing it.
+- **Officers:** `OFFICERS` array: `[name, role, major, linkedin url]`. The photo is `img/<name>.jpg`. Keep the name lowercase.
+- **Club name:** always written "hacksu" (lowercase).
+- **Colors:** `:root` at the top of the `<style>` block. The accent is also switchable with the swatches in the top bar.

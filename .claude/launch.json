@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "hacksu",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4321", "--directory", "/Users/sanjayramvijayanand/Hacksu"],
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4321"],
       "port": 4321
     }
   ]
