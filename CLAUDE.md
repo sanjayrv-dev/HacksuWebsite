@@ -7,7 +7,7 @@
 
 ## The site
 - Single static page: `index.html` (inline CSS + JS, three.js r128 from cdnjs) + `img/` officer photos. No build step.
-- Preview with the `hacksu` config in `.claude/launch.json` (python http.server on port 4321). Opening `index.html` as a file won't load the photos.
+- Preview with `.claude/launch.json`: `hacksu` on Mac (python3), `hacksu-windows` on Windows (python). Both run http.server on port 4321. Opening `index.html` as a file won't load the photos.
 - Content lives in the `content` block of the script (`OFFICERS`, `PAGES`, `EVENTS`); the 3D room is under `3d`.
 - `OFFICERS` entries are `[name, role, major, linkedin url]`; photo is `img/<name>.jpg`. Photos are b&w until hovered; clicking asks before opening LinkedIn.
 - Keep the existing design (black, Archivo, lowercase text, accent swatches) unless asked to change it.

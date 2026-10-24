@@ -3,6 +3,12 @@
   "configurations": [
     {
       "name": "hacksu",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4321"],
+      "port": 4321
+    },
+    {
+      "name": "hacksu-windows",
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "4321"],
       "port": 4321

@@ -11,13 +11,13 @@ Placeholders still in [brackets]: club email, discord invite, instagram handle, 
 
 ## Getting started
 
-You need git and Python 3, plus collaborator access to https://github.com/sanjayrv-dev/HacksuWebsite (ask Sanjay).
+You need git and Python 3.
 
 ```bash
 git clone https://github.com/sanjayrv-dev/HacksuWebsite.git
 cd HacksuWebsite
 git switch dev
-python -m http.server 4321
+python3 -m http.server 4321   # on Windows: python -m http.server 4321
 ```
 
 Then open http://localhost:4321. Use the local server: if you double-click `index.html` instead, some browsers won't load the photos.
@@ -37,7 +37,7 @@ git push origin dev
 
 ## Working with Claude
 
-`CLAUDE.md` holds the project rules (branches, the "hacksu" spelling, how to preview), and Claude reads it automatically. Open this folder in Claude Code while on `dev`, and Claude previews the site with the `hacksu` launch config.
+`CLAUDE.md` holds the project rules (branches, the "hacksu" spelling, how to preview), and Claude reads it automatically. Open this folder in Claude Code while on `dev`, and Claude previews the site with the `hacksu` (Mac) or `hacksu-windows` launch config.
 
 ## Editing tips
 
