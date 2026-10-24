@@ -81,6 +81,11 @@ button{font:inherit; color:inherit}
 .cat.on{color:var(--accent)}
 .crew{display:flex; flex-wrap:wrap; border-top:1px solid var(--line); border-left:1px solid var(--line)}
 .crew .tile{flex:1 1 16%; min-width:190px; padding:12px; display:flex; flex-direction:column; gap:12px}
+.crew img{filter:grayscale(1); transition:filter .3s; cursor:pointer}
+.crew .tile:hover img, .crew img:focus-visible{filter:none}
+#ask{position:fixed; inset:0; z-index:40; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(0,0,0,.6)}
+#ask[hidden]{display:none}
+#ask .box{background:#000; border:1px solid var(--accent); padding:20px; max-width:360px; width:100%; display:flex; flex-direction:column; gap:16px}
 .mas{columns:3 280px; column-gap:12px}
 .note{border:1px dashed #454545; padding:20px; font-weight:600; color:var(--ash)}
 .note a{color:var(--accent); text-decoration:underline}
@@ -130,6 +135,7 @@ footer .meta{display:flex; flex-direction:column; align-items:flex-end; text-ali
 <div id="sheet"><div class="wrap" id="content"></div><footer id="foot"></footer></div>
 </main>
 <div id="tip"></div>
+<div id="ask" hidden role="dialog" aria-modal="true" aria-labelledby="askq"><div class="box"><p class="stmt" id="askq" style="font-size:26px"></p><div style="display:flex;gap:8px"><button class="btn w" id="askyes">open linkedin ↗</button><button class="btn" id="askno">cancel</button></div></div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -151,7 +157,7 @@ var nextCard = function () {
     '<span style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700"><span class="dot" style="margin:0"></span>upcoming</span><p class="p">[one-line description of what happens and who it is for.]</p><div style="display:flex;gap:8px;margin-top:8px"><a href="#" class="btn w">rsvp</a><a href="#" class="btn">add to calendar</a></div>',
     '[event name]', '[month dd, yyyy] at [time]<br>[building · room]');
 };
-var OFFICERS = [['sanjay','president','cs + math'],['akshat','vice president','cpe'],['prannav','secretary','me'],['alex','head of marketing','cpe'],['amrit','reservation delegate','isye'],['ishika','treasurer','isye']];
+var OFFICERS = [['sanjay','president','cs + math','https://www.linkedin.com/in/sanjayrv'],['akshat','vice president','cpe','https://www.linkedin.com/in/sai-akshat-chitta/'],['prannav','secretary','me','https://www.linkedin.com/in/saiprannavmurali/'],['alex','head of marketing','cpe','https://www.linkedin.com/in/alexander-rostovtsev-941ab938a/'],['amrit','reservation delegate','isye','https://www.linkedin.com/in/amrit-sarangi-758019316/'],['ishika','treasurer','isye','https://www.linkedin.com/in/ishikav18/']];
 var EVENTS = [['hackathon'],['speaker night'],['workshop'],['build night'],['hackathon'],['speaker night'],['workshop']];
 var filter = 'all';
 var eventList = function () {
@@ -194,10 +200,9 @@ var PAGES = {
     html: function () {
       var vals = [['every major, every level', "beginners welcome. you don't need a team or an idea to show up. cs, engineering, business, design: if you build, you belong here."],['ship it together','we team up across majors at hackathons and finish with working projects. we enjoy the grind, the humor, and the demo at the end.'],['no one figures it out alone','real projects, real connections, and a community that ships together. we ask for help when we need it.']];
       var v = vals.map(function (x) { return '<div style="margin-top:16px;border-bottom:1px solid var(--line2);padding-bottom:16px">' + trio('<p class="mid" style="font-size:clamp(36px,5vw,76px)">' + x[0] + '</p>', ph('image · b&w', '1 / 1'), '<p class="p">' + x[1] + '</p>') + '</div>'; }).join('');
-      var crew = OFFICERS.map(function (o, i) { return '<div class="tile" id="off-' + i + '">' + '<img src="img/' + o[0] + '.jpg" alt="' + o[0] + '" style="width:100%;aspect-ratio:4/5;object-fit:cover;display:block">' + '<div><div class="caps" style="font-size:18px;font-weight:700;letter-spacing:-0.03em">' + o[0] + '</div><div class="ash" style="font-size:13px;font-weight:600;margin-top:4px">' + o[1] + ' · ' + o[2] + '</div></div></div>'; }).join('');
-      var list = OFFICERS.map(function (o) { return '<div class="rowl" style="font-weight:600"><span class="caps" style="flex:1 1 200px">' + o[0] + '</span><span class="ash" style="flex:1 1 200px">' + o[1] + '</span><span class="mut" style="flex:1 1 120px">' + o[2] + '</span><span class="mut" style="flex:1 1 200px;text-align:right">[linkedin] · [github]</span></div>'; }).join('');
+      var crew = OFFICERS.map(function (o, i) { return '<div class="tile" id="off-' + i + '">' + '<img src="img/' + o[0] + '.jpg" alt="' + o[0] + '" data-li="' + i + '" tabindex="0" role="button" aria-label="open ' + o[0] + '\'s linkedin" style="width:100%;aspect-ratio:4/5;object-fit:cover;display:block">' + '<div><div class="caps" style="font-size:18px;font-weight:700;letter-spacing:-0.03em">' + o[0] + '</div><div class="ash" style="font-size:13px;font-weight:600;margin-top:4px">' + o[1] + ' · ' + o[2] + '</div></div></div>'; }).join('');
       return '<div class="sec" style="margin-top:96px">' + lab('our values') + v + '</div>' +
-        '<div class="sec"><div class="sp"><h2 class="big" style="font-size:clamp(56px,8vw,120px)">the crew</h2><span class="big" style="font-size:clamp(56px,8vw,120px);color:var(--muted)">6</span></div><div class="hr" style="margin-bottom:24px"></div><div class="crew">' + crew + '</div><div style="margin-top:40px">' + list + '<div class="hr" style="margin:0"></div></div></div>' +
+        '<div class="sec"><div class="sp"><h2 class="big" style="font-size:clamp(56px,8vw,120px)">the crew</h2><span class="big" style="font-size:clamp(56px,8vw,120px);color:var(--muted)">6</span></div><div class="hr" style="margin-bottom:24px"></div><div class="crew">' + crew + '</div></div>' +
         '<div class="sec">' + lab('advisor') + '<div style="height:20px"></div>' + trio('<p class="mid caps" style="font-size:clamp(36px,5vw,76px)">harshita nirujogi</p>', ph('advisor photo', '4 / 5'), '<p class="p" style="margin-bottom:12px">faculty advisor · computer science department</p><p class="p ash">[one or two sentences on how the advisor supports hacksu.]</p>') + '</div>' +
         '<div class="sec">' + lab('join the crew') + '<div style="height:20px"></div>' + trio('<p class="mid">curious? driven? come build with us.</p>', '', '<p class="p">come to a meeting, find your people, and build something with us. [officer applications / how to get involved.]</p><div style="display:flex;gap:8px;margin-top:16px">' + go('meetings', 'see meetings →', 'w') + '<a href="#" class="btn">join discord</a></div>') + '</div>';
     }
@@ -940,7 +945,26 @@ window.addEventListener('pointermove', function (e) {
   if (k && (k !== current || pickIdx != null) && !tw) { document.body.style.cursor = 'pointer'; tip.textContent = (pickIdx != null ? OFFICERS[pickIdx][0].toUpperCase() + ' · ' + OFFICERS[pickIdx][1] : (k === 'home' ? 'the room' : k)) + ' →'; tip.style.left = e.clientX + 'px'; tip.style.top = e.clientY + 'px'; tip.style.opacity = 1; setHover(k); }
   else { document.body.style.cursor = ''; tip.style.opacity = 0; if (hoverKey && !(e.target.closest && e.target.closest('#bar'))) setHover(null); }
 });
+/* officer photo -> confirm -> linkedin */
+var askUrl = null, askFrom = null;
+function askLinkedIn(i, from) {
+  var o = OFFICERS[i]; askUrl = o[3]; askFrom = from;
+  $('askq').textContent = 'open ' + o[0] + '\'s linkedin?';
+  $('ask').hidden = false; $('askyes').focus();
+}
+function closeAsk() { $('ask').hidden = true; askUrl = null; if (askFrom) askFrom.focus(); askFrom = null; }
+$('askyes').addEventListener('click', function () { var u = askUrl; closeAsk(); if (u) window.open(u, '_blank', 'noopener'); });
+$('askno').addEventListener('click', closeAsk);
+$('ask').addEventListener('click', function (e) { if (e.target === this) closeAsk(); });
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && !$('ask').hidden) { e.stopImmediatePropagation(); closeAsk(); return; }
+  var li = e.target.closest ? e.target.closest('[data-li]') : null;
+  if (li && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); askLinkedIn(+li.getAttribute('data-li'), li); }
+}, true);
 window.addEventListener('click', function (e) {
+  var li = e.target.closest ? e.target.closest('[data-li]') : null;
+  if (li) { askLinkedIn(+li.getAttribute('data-li'), li); return; }
+  if (e.target.closest && e.target.closest('#ask')) return;
   var d = e.target.closest ? e.target.closest('[data-go]') : null;
   if (d) { e.preventDefault(); goTo(d.getAttribute('data-go')); return; }
   var f = e.target.closest ? e.target.closest('[data-filter]') : null;
